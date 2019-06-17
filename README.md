@@ -159,7 +159,7 @@ PERCENT	 -   TIME   - CODE  -   METHOD  - LENGHT - URL
 0.54%    - 02:06:35 -  200  -	GET	-  5523    - http://testphp.vulnweb.com/admin/ 
  ```
  
- _Recursive:__
+ _Recursive:_
 
  - `python konan.py -u/--url http://example.com/ -E/--recursive`
  
