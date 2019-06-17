@@ -99,7 +99,7 @@ PERCENT	 -   TIME   - CODE  -   METHOD  - LENGHT - URL
 
  - `python konan.py -u/--url http://example.com/ -w/--wordlist /root/dict.txt `
 
-_Provide extensions with `-f/--force` option:_
+_Provide extensions with `-e/--extension` option and force extension for every wordlist entry with `-f/--force` option:_
 
  - `python konan.py -u/--url http://example.com/ -e/--extension php,html -f/--force`
  
