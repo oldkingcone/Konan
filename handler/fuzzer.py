@@ -166,7 +166,7 @@ class Fuzzer(Request,Output):
 									self.addDirectory(path)
 									self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
 									self.reportManager.save()
-								elif code not in self.excludeStatusCodes and (cProcess(self.lenght,resp.len_content) if self.lenght != None else True):
+								elif code not in self.excludeStatusCodes and self.includeStatusCodes == [] and (cProcess(self.lenght,resp.len_content) if self.lenght != None else True):
 									print('- %s -\t%s\t- %s   - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else ''))
 									self.addDirectory(path)
 									self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
