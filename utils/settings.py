@@ -61,7 +61,7 @@ kwargs = {
 			'exclude'  : [],
 			'only'     : [],
 			'methods'  : False,
-			'lenght'   : None,
+			'length'   : None,
 			'dirs'     : [],
 			'firstScan': False,
 			'multiple' : False,
@@ -95,7 +95,7 @@ usage = '''
 \t-m --methods\tCheck other methods (POST,PUT and DELETE)
 
 \t-O --output\tOutput support json and txt format (e.g: out.json)
-\t-C --lenght\tShow only if response lenght is ">","<" or "=" (e.g: ">1024")
+\t-C --length\tShow only if response length is ">","<" or "=" (e.g: ">1024")
 \t-o --only\tShow only status code separated by comma (e.g: 200,302)
 \t-t --threads\tMax number of concurrent HTTP requests
 \t-T --timeout\tSeconds to wait before timeout connection
@@ -134,7 +134,7 @@ def cProcess(condition,content):
 wOption = [	'url=','url-list=','hostname','extension=','wordlist=',
 			'agent=','ragent','cookies=','headers=','force','exclude=',
 			'lowercase','uppercase','split','redirect','delay=','proxy=',
-			'methods','output=','lenght=','ignore=','only=','threads=','timeout=','recursive',
+			'methods','output=','length=','ignore=','only=','threads=','timeout=','recursive',
 			'dir-rec=','sub-dir=','help'
 			]
 # ALL LETTERS OPTIONS
@@ -190,7 +190,7 @@ def urlJoin(url,path):
 	else:
 		return url + path 
 
-header = "\033[1mPERCENT\t -   TIME   - CODE  -   METHOD  - LENGHT - URL\033[0m\n%s"%('-'*55)
+header = "\033[1mPERCENT\t -   TIME   - CODE  -   METHOD  - LENGTH - URL\033[0m\n%s"%('-'*55)
 
 def printConfig():
 	ban = banner
