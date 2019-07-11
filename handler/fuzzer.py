@@ -30,7 +30,7 @@ class Fuzzer(Request,Output):
 		self.includeStatusCodes = kwargs['only']
 		self.methods = kwargs['methods']
 		self.threads = []
-		self.lenght = kwargs['lenght']
+		self.length = kwargs['length']
 		self.threadsCount = threads
 		self.running = False
 		self.directories = Queue()
@@ -161,17 +161,17 @@ class Fuzzer(Request,Output):
 						for method in ['GET','POST','PUT',b'DELETE']:
 							code,resp = self.testPath(path,method=method)
 							if code != 404 and code != 405:
-								if code in self.includeStatusCodes and (cProcess(self.lenght,resp.len_content) if self.lenght != None else True):
+								if code in self.includeStatusCodes and (cProcess(self.length,resp.len_content) if self.length != None else True):
 									print('- %s -\t%s\t - %s  - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else ''))
 									self.addDirectory(path)
 									self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
 									self.reportManager.save()
-								elif code not in self.excludeStatusCodes and self.includeStatusCodes == [] and (cProcess(self.lenght,resp.len_content) if self.lenght != None else True):
+								elif code not in self.excludeStatusCodes and self.includeStatusCodes == [] and (cProcess(self.length,resp.len_content) if self.length != None else True):
 									print('- %s -\t%s\t- %s   - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else ''))
 									self.addDirectory(path)
 									self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
 									self.reportManager.save()
-								elif (cProcess(self.lenght,resp.len_content) if self.lenght != None else True) and self.includeStatusCodes == [] and self.excludeStatusCodes == []:
+								elif (cProcess(self.length,resp.len_content) if self.length != None else True) and self.includeStatusCodes == [] and self.excludeStatusCodes == []:
 									print('- %s -\t%s\t- %s   - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else ''))
 									self.addDirectory(path)
 									self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
@@ -194,19 +194,19 @@ class Fuzzer(Request,Output):
 						code,resp = self.testPath(path)
 						if code != 404:
 							# ---------------------------
-							if code in self.includeStatusCodes and (cProcess(self.lenght,resp.len_content) if self.lenght != None else True):
+							if code in self.includeStatusCodes and (cProcess(self.length,resp.len_content) if self.length != None else True):
 								print('-  %s  -\t%s\t-  %s  - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else ''))
 								self.addDirectory(path)
 								self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
 								self.reportManager.save()
 
-							elif code not in self.excludeStatusCodes and self.includeStatusCodes == [] and (cProcess(self.lenght,resp.len_content) if self.lenght != None else True):
+							elif code not in self.excludeStatusCodes and self.includeStatusCodes == [] and (cProcess(self.length,resp.len_content) if self.length != None else True):
 								print('-  %s  -\t%s\t-  %s  - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else ''))
 								self.addDirectory(path)
 								self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
 								self.reportManager.save()
 					
-				 			elif (cProcess(self.lenght,resp.len_content) if self.lenght != None else True) and self.includeStatusCodes == [] and self.excludeStatusCodes == []:
+				 			elif (cProcess(self.length,resp.len_content) if self.length != None else True) and self.includeStatusCodes == [] and self.excludeStatusCodes == []:
 								print('-  %s  -\t%s\t-  %s  - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else ''))
 								self.addDirectory(path)
 								self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)

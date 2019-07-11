@@ -58,7 +58,7 @@ class Konan(Output):
 			if(opts[i][0] in('-d','--delay')):kwargs['delay'] = int(opts[i][1])
 			if(opts[i][0] in('-P','--proxy')):kwargs['proxy'] = opts[i][1]
 			if(opts[i][0] in('-m','--methods')):kwargs['methods'] = True
-			if(opts[i][0] in('-C','--lenght')):kwargs['lenght'] = opts[i][1]
+			if(opts[i][0] in('-C','--length')):kwargs['length'] = opts[i][1]
 			if(opts[i][0] in('-o','--only')):kwargs['only'] = StrToInt(opts[i][1].split(','))
 			if(opts[i][0] in('-t','--threads')):kwargs['threads'] = int(opts[i][1])
 			if(opts[i][0] in('-T','--timeout')):kwargs['timeout'] = float(opts[i][1])

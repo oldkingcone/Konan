@@ -59,7 +59,7 @@ _Basic:_
 ```
 URL: http://testphp.vulnweb.com/
 
-PERCENT	 -   TIME   - CODE  -   METHOD  - LENGHT - URL
+PERCENT	 -   TIME   - CODE  -   METHOD  - LENGTH - URL
 -------------------------------------------------------
 0.39%    - 01:32:50 -  200  -	GET	-  4958    - http://testphp.vulnweb.com/index.php 
 0.43%    - 01:32:52 -  200  -	GET	-  4732    - http://testphp.vulnweb.com/search.php 
@@ -76,7 +76,7 @@ _Injection Point:_
 ```
 URL: http://testphp.vulnweb.com/%%/index.php
 
-PERCENT	 -   TIME   - CODE  -   METHOD  - LENGHT - URL
+PERCENT	 -   TIME   - CODE  -   METHOD  - LENGTH - URL
 -------------------------------------------------------
 0.39%    - 01:32:50 -  200  -	GET	-  4958    - http://testphp.vulnweb.com/test/index.php 
 0.43%    - 01:32:52 -  200  -	GET	-  4732    - http://testphp.vulnweb.com/search/index.php 
@@ -88,7 +88,7 @@ PERCENT	 -   TIME   - CODE  -   METHOD  - LENGHT - URL
 ```
 URL: http://testphp.vulnweb.com/test%%
 
-PERCENT	 -   TIME   - CODE  -   METHOD  - LENGHT - URL
+PERCENT	 -   TIME   - CODE  -   METHOD  - LENGTH - URL
 -------------------------------------------------------
 0.39%    - 01:32:50 -  200  -	GET	-  4958    - http://testphp.vulnweb.com/test12
 0.43%    - 01:32:52 -  200  -	GET	-  4732    - http://testphp.vulnweb.com/test34 
@@ -106,7 +106,7 @@ _Provide extensions with `-e/--extension` option and force extension for every w
  ```
  URL: http://testphp.vulnweb.com/
 
-PERCENT	 -   TIME   - CODE  -   METHOD  - LENGHT - URL
+PERCENT	 -   TIME   - CODE  -   METHOD  - LENGTH - URL
 -------------------------------------------------------
 0.39%    - 02:00:21 -  200  -	GET	-  4958    - http://testphp.vulnweb.com/index.html 
 0.43%    - 02:00:23 -  200  -	GET	-  4732    - http://testphp.vulnweb.com/search.php 
@@ -142,7 +142,7 @@ Output without `-I/--ignore` options:
  ```
  URL: http://testphp.vulnweb.com/
 
-PERCENT	 -   TIME   - CODE  -   METHOD  - LENGHT - URL
+PERCENT	 -   TIME   - CODE  -   METHOD  - LENGTH - URL
 -------------------------------------------------------
 0.39%    - 02:06:31 -  200  -	GET	-  4958    - http://testphp.vulnweb.com/???.php 
 0.43%    - 02:06:32 -  200  -	GET	-  4732    - http://testphp.vulnweb.com/??????????? 
@@ -154,7 +154,7 @@ Output with `-I/--ignore` (in this case `\?+`) options:
 ```
  URL: http://testphp.vulnweb.com/
 
-PERCENT	 -   TIME   - CODE  -   METHOD  - LENGHT - URL
+PERCENT	 -   TIME   - CODE  -   METHOD  - LENGTH - URL
 -------------------------------------------------------
 0.54%    - 02:06:35 -  200  -	GET	-  5523    - http://testphp.vulnweb.com/admin/ 
  ```
@@ -179,12 +179,12 @@ PERCENT	 -   TIME   - CODE  -   METHOD  - LENGHT - URL
   
  _Content size process (show response if the response size is ">[number]","<[number]","=[number]"):_
  
- - `python konan.py -u/--url http://example.com/ -C/--lenght "<1000"`
+ - `python konan.py -u/--url http://example.com/ -C/--length "<1000"`
  
  ```
  URL: http://testphp.vulnweb.com/
 
-PERCENT	 -   TIME   - CODE  -   METHOD  - LENGHT - URL
+PERCENT	 -   TIME   - CODE  -   METHOD  - LENGTH - URL
 -------------------------------------------------------
 0.19%    - 02:11:46 -  301  -	GET	-  184     - http://testphp.vulnweb.com/admin  -> http://testphp.vulnweb.com/admin/
 1.73%    - 02:12:37 -  301  -	GET	-  184     - http://testphp.vulnweb.com/images  -> http://testphp.vulnweb.com/images/
