@@ -48,7 +48,7 @@ kwargs = {
 			'timeout'  : 5,
 			'delay'    : None,
 			'output'   : None,
-			'wordlist' : TOOL_PATH + '/db/dict.txt',
+			'wordlist' : TOOL_PATH[:-1] + '/db/dict.txt' if TOOL_PATH.endswith('/') else TOOL_PATH + '/db/dict.txt',
 			'exts'     : None,
 			'threads'  : 1,
 			'recursive': False,
