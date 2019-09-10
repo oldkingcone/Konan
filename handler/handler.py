@@ -29,9 +29,10 @@ class Handler(Request,Output):
 				resp = self.http('','GET')
 				if type(resp) == bool:
 					self.printWarn('CONNECTION ERROR: check your Connection or Target URL!',False)
-					sys.exit(0)
+					pass
 			except Exception as e:
-				sys.exit(0)
+				print "An exception ocurred:\n{0}".format(str(e))
+				pass
 			# init
 			self.reportManager = ReportManager()
 			self.setupReports()
