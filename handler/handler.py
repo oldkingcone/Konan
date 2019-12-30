@@ -12,10 +12,10 @@ import sys
 from utils.reports import *
 from utils.settings import *
 # ---
-from output import *
-from fuzzerdict import *
-from reportmanger import *
-from fuzzer import *
+from .output import *
+from .fuzzerdict import *
+from .reportmanger import *
+from .fuzzer import *
 from net.request import *
 
 class Handler(Request,Output):
@@ -31,7 +31,7 @@ class Handler(Request,Output):
 					self.printWarn('CONNECTION ERROR: check your Connection or Target URL!',False)
 					pass
 			except Exception as e:
-				print "An exception ocurred:\n{0}".format(str(e))
+				print("An exception ocurred:\n{0}".format(str(e)))
 				pass
 			# init
 			self.reportManager = ReportManager()
@@ -47,7 +47,7 @@ class Handler(Request,Output):
 			self.printWarn('Terminated by user...')
 			sys.exit(0)
 		if kwargs['recursive'] is False or kwargs['multiple'] is False or kwargs['subDir'] == []:
-			print '\nTask Completed'
+			print('\nTask Completed')
 
 	def setupReports(self):
 		# -- output report ---

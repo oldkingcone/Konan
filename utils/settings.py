@@ -5,18 +5,22 @@
 # by: Momo (mallok) Outaadi
 # https://github.com/m4ll0k
 ################################################
-
+import pathlib
 import re
 import os
 import sys
-import urlparse
 # --
+from urllib.parse import urlparse
+
 from handler.output import Output
-from colorama import init;init()
+from colorama import init
+init()
 
 # TOOL PATH
 ABS_PATH = os.path.dirname(os.path.realpath(__file__)).split('konan')[0]
-TOOL_PATH = os.path.join(os.path.join(ABS_PATH,'konan'),'')
+TOOL_PATH = list(pathlib.Path(os.path.join(os.path.join(ABS_PATH,'konan'),'')).parents)[1]
+
+print(TOOL_PATH)
 
 # TOOL PATH
 RED = '\033[%s;31m'
@@ -48,7 +52,7 @@ kwargs = {
 			'timeout'  : 5,
 			'delay'    : None,
 			'output'   : None,
-			'wordlist' : TOOL_PATH[:-1] + '/db/dict.txt' if TOOL_PATH.endswith('/') else TOOL_PATH + '/db/dict.txt',
+			'wordlist' : TOOL_PATH.joinpath(pathlib.Path("db").joinpath("dict.txt")),
 			'exts'     : None,
 			'threads'  : 1,
 			'recursive': False,
@@ -147,10 +151,10 @@ def urlParse(url):
 	_url = url
 	path_end = False
 	is_query = False
-	parse = urlparse.urlparse(url)
+	parse = urlparse(url)
 	if parse.scheme == '':
 		url = 'http://' + url
-		parse = urlparse.urlparse(url)
+		parse = urlparse(url)
 		if parse.path != '':
 			path_ext = parse.path[-10:]
 			if re.search(r'\w*\.\w*',path_ext,re.I):

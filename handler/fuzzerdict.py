@@ -9,7 +9,7 @@
 import re
 import threading
 from utils.file import *
-from output import *
+from .output import *
  
 class FuzzerDict(Output):
 	def __init__(self,path,kwargs):
@@ -83,7 +83,7 @@ class FuzzerDict(Output):
 		self.condition.release()
 		return currentIndex,result
 
-	def next(self,basePath=None):
+	def __next__(self,basePath=None):
 		_,path = self.nextWithIndex(basePath)
 		return path
 

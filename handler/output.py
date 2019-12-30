@@ -37,5 +37,5 @@ class Output(object):
 		self.printInLine('{1:.2f}%\t - {time} '.format(path,p(index,length),time=time.strftime('%H:%M:%S')))
 
 	def printWarn(self,string,e=True):
-		print '\033[1;31m[ ! ]\033[0m \033[1m%s\033[0m'%(string)
+		print('\033[1;31m[ ! ]\033[0m \033[1m%s\033[0m'%(string))
 		if e: sys.exit(0)

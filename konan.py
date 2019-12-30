@@ -6,13 +6,11 @@
 # https://github.com/m4ll0k
 ################################################
 
-import sys
 import getopt
 
-from utils.settings import *
-from handler.output import * 
-from utils.file import *
 from handler.handler import *
+from utils.file import *
+
 
 class Konan(Output):
 	def __init__(self):
@@ -24,12 +22,12 @@ class Konan(Output):
 
 	def main(self):
 		if len(sys.argv) < 2:
-			print usage
+			print(usage)
 			sys.exit(0)
 		try:
 			opts,args = getopt.getopt(sys.argv[1:],lOption,wOption)
 		except getopt.GetoptError as e:
-			print usage
+			print(usage)
 			sys.exit(0)
 		for i in range(len(opts)):
 			if(opts[i][0] in('-u','--url')): self.url,kwargs['host'] = urlParse(opts[i][1])
@@ -69,36 +67,37 @@ class Konan(Output):
 			if(opts[i][0] in('-S','--sub-dir')):
 				kwargs['subDir'] = opts[i][1].split(',')
 			if(opts[i][0] in('-h','--help')):
-				print usage
+				print(usage)
 				sys.exit(0)
 		# -- print banner and url
-		print printConfig().format(url=self.url)
+		print(printConfig().format(url=self.url))
 		# -- single URL
 		if self.url != None:
+			print(kwargs["wordlist"])
 			Handler(self.url,kwargs)
 		# -- multiple TARGET's provided by file 
 		elif self.urls != None:
 			kwargs['multiple'] = True
 			for _url in self.urls:
 				url,kwargs['host'] = urlParse(_url)
-				print '\n\n%sURL:%s %s\n\n%s'%(YELLOW%1,RESET,url,header)
+				print('\n\n%sURL:%s %s\n\n%s'%(YELLOW%1,RESET,url,header))
 				Handler(url,kwargs)
-			print '\nTask Completed'
+			print('\nTask Completed')
 		# -- recursively
 		if kwargs['recursive'] and kwargs['dirs'] != []:
 			kwargs['firstScan'] = not 0
 			for _dir in kwargs['dirs']:
 				url,kwargs['host'] = urlParse(urlJoin(self.url,_dir))
-				print '\n\n%sDirectory:%s %s\n\n%s'%(YELLOW%1,RESET,url,header)
+				print('\n\n%sDirectory:%s %s\n\n%s'%(YELLOW%1,RESET,url,header))
 				Handler(url,kwargs)
-			print '\nTask Completed'
+			print('\nTask Completed')
 		# -- scan sub-dir
 		if kwargs['subDir'] != []:
 			for _dir in kwargs['subDir']:
 				url,kwargs['host'] = urlParse(urlJoin(self.url,_dir))
-				print '\n\n%sDirectory:%s %s\n\n%s'%(YELLOW%1,RESET,url,header)
+				print('\n\n%sDirectory:%s %s\n\n%s'%(YELLOW%1,RESET,url,header))
 				Handler(url,kwargs)
-			print '\nTask Completed'
+			print('\nTask Completed')
 		return not 1
 try:
 	Konan().main()
