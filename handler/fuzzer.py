@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 ################################################
 # konan - Advanced Web Application Dir Scanner
@@ -14,23 +14,22 @@ from utils.settings import *
 from .reportmanger import *
 
 
-class Fuzzer(Request,Output):
-
-    def __init__(self,url,kwargs,dictionary, threads=1,reportManager=None):
-        Request.__init__(self,url,kwargs)
+class Fuzzer(Request, Output):
+    def __init__(self, url, kwargs, dictionary, threads=1, reportManager=None):
+        Request.__init__(self, url, kwargs)
         Output.__init__(self)
         self.kwargs = kwargs
         self.dictionary = dictionary
-        self.excludeStatusCodes = kwargs['exclude']
-        self.includeStatusCodes = kwargs['only']
-        self.methods = kwargs['methods']
+        self.excludeStatusCodes = kwargs["exclude"]
+        self.includeStatusCodes = kwargs["only"]
+        self.methods = kwargs["methods"]
         self.threads = []
-        self.length = kwargs['length']
+        self.length = kwargs["length"]
         self.threadsCount = threads
         self.running = False
         self.directories = Queue()
-        self.recursive = kwargs['recursive']
-        self.currentDirectory = ''
+        self.recursive = kwargs["recursive"]
+        self.currentDirectory = ""
         self.indexMutex = threading.Lock()
         self.index = 0
         self.threadSetup()
@@ -43,7 +42,6 @@ class Fuzzer(Request,Output):
             newThread = threading.Thread(target=self.thread_proc)
             newThread.daemon = True
             self.threads.append(newThread)
-
 
     def start(self):
         self.index = 0
@@ -73,13 +71,13 @@ class Fuzzer(Request,Output):
         try:
             while True:
                 if self.directories.empty():
-                    option = input('\n[q/Q]uit / [c/C]ontinue: ')
-                if option in ['q','Q','quit','QUIT','Quit']:
+                    option = input("\n[q/Q]uit / [c/C]ontinue: ")
+                if option in ["q", "Q", "quit", "QUIT", "Quit"]:
                     self.running = False
                     self.exit = True
                     self.play()
                     raise KeyboardInterrupt
-                elif option in ['c','Continue','continue','CONTINUE','C']:
+                elif option in ["c", "Continue", "continue", "CONTINUE", "C"]:
                     self.play()
                     return
                 else:
@@ -99,7 +97,7 @@ class Fuzzer(Request,Output):
                         raise
                     else:
                         pass
-        except (KeyboardInterrupt,SystemExit) as e:
+        except (KeyboardInterrupt, SystemExit) as e:
             if self.exit:
                 raise e
             self.handleInterrupt()
@@ -122,20 +120,20 @@ class Fuzzer(Request,Output):
         self.reportManager.close()
         return
 
-    def addDirectory(self,path):
+    def addDirectory(self, path):
         if self.recursive is False:
             return False
-        if self.kwargs['recDir'] != []:
-            for x in self.kwargs['recDir']:
-                if x in self.kwargs['dirs']:
+        if self.kwargs["recDir"] != []:
+            for x in self.kwargs["recDir"]:
+                if x in self.kwargs["dirs"]:
                     pass
                 else:
-                    self.kwargs['dirs'].append(x)
-        if path != None and self.kwargs['firstScan'] is False:
-            if path in self.kwargs['dirs']:
+                    self.kwargs["dirs"].append(x)
+        if path != None and self.kwargs["firstScan"] is False:
+            if path in self.kwargs["dirs"]:
                 pass
             else:
-                self.kwargs['dirs'].append(path)
+                self.kwargs["dirs"].append(path)
         else:
             return False
 
@@ -143,9 +141,9 @@ class Fuzzer(Request,Output):
         self.running = False
         self.finishedEvent.set()
 
-    def testPath(self,path,method='GET'):
-        resp = self.http(path,method)
-        return resp.code,resp
+    def testPath(self, path, method="GET"):
+        resp = self.http(path, method)
+        return resp.code, resp
 
     def thread_proc(self):
         try:
@@ -153,28 +151,95 @@ class Fuzzer(Request,Output):
             while path is not None:
                 try:
                     if self.methods is True:
-                        for method in ['GET','POST','PUT',b'DELETE']:
-                            code,resp = self.testPath(path,method=method)
+                        for method in ["GET", "POST", "PUT", b"DELETE"]:
+                            code, resp = self.testPath(path, method=method)
                             if code != 404 and code != 405:
-                                if code in self.includeStatusCodes and (cProcess(self.length,resp.len_content) if self.length != None else True):
-                                    print(('- %s -\t%s\t - %s  - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else '')))
+                                if code in self.includeStatusCodes and (
+                                    cProcess(self.length, resp.len_content)
+                                    if self.length != None
+                                    else True
+                                ):
+                                    print(
+                                        (
+                                            "- %s -\t%s\t - %s  - %s %s"
+                                            % (
+                                                code,
+                                                resp.method,
+                                                printContent(str(len(resp.content))),
+                                                resp.url,
+                                                " -> " + resp.headers["Location"]
+                                                if code in [301, 302]
+                                                else "",
+                                            )
+                                        )
+                                    )
                                     self.addDirectory(path)
-                                    self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
+                                    self.reportManager.addPath(
+                                        code, resp.url, resp.len_content, resp.method
+                                    )
                                     self.reportManager.save()
-                                elif code not in self.excludeStatusCodes and self.includeStatusCodes == [] and (cProcess(self.length,resp.len_content) if self.length != None else True):
-                                    print(('- %s -\t%s\t- %s   - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else '')))
+                                elif (
+                                    code not in self.excludeStatusCodes
+                                    and self.includeStatusCodes == []
+                                    and (
+                                        cProcess(self.length, resp.len_content)
+                                        if self.length != None
+                                        else True
+                                    )
+                                ):
+                                    print(
+                                        (
+                                            "- %s -\t%s\t- %s   - %s %s"
+                                            % (
+                                                code,
+                                                resp.method,
+                                                printContent(str(len(resp.content))),
+                                                resp.url,
+                                                " -> " + resp.headers["Location"]
+                                                if code in [301, 302]
+                                                else "",
+                                            )
+                                        )
+                                    )
                                     self.addDirectory(path)
-                                    self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
+                                    self.reportManager.addPath(
+                                        code, resp.url, resp.len_content, resp.method
+                                    )
                                     self.reportManager.save()
-                                elif (cProcess(self.length,resp.len_content) if self.length != None else True) and self.includeStatusCodes == [] and self.excludeStatusCodes == []:
-                                    print(('- %s -\t%s\t- %s   - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else '')))
+                                elif (
+                                    (
+                                        cProcess(self.length, resp.len_content)
+                                        if self.length != None
+                                        else True
+                                    )
+                                    and self.includeStatusCodes == []
+                                    and self.excludeStatusCodes == []
+                                ):
+                                    print(
+                                        (
+                                            "- %s -\t%s\t- %s   - %s %s"
+                                            % (
+                                                code,
+                                                resp.method,
+                                                printContent(str(len(resp.content))),
+                                                resp.url,
+                                                " -> " + resp.headers["Location"]
+                                                if code in [301, 302]
+                                                else "",
+                                            )
+                                        )
+                                    )
                                     self.addDirectory(path)
-                                    self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
+                                    self.reportManager.addPath(
+                                        code, resp.url, resp.len_content, resp.method
+                                    )
                                     self.reportManager.save()
                             # ------------------------------
                             self.indexMutex.acquire()
                             self.index += 1
-                            self.printlastPathEntry(path,self.index,len(self.dictionary))
+                            self.printlastPathEntry(
+                                path, self.index, len(self.dictionary)
+                            )
                             self.indexMutex.release()
                             path = next(self.dictionary)
                             if not self.playEvent.isSet():
@@ -186,30 +251,95 @@ class Fuzzer(Request,Output):
                                 self.running = False
                                 self.finishThreads()
                     else:
-                        code,resp = self.testPath(path)
+                        code, resp = self.testPath(path)
                         if code != 404:
                             # ---------------------------
-                            if code in self.includeStatusCodes and (cProcess(self.length,resp.len_content) if self.length != None else True):
-                                print(('-  %s  -\t%s\t-  %s  - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else '')))
+                            if code in self.includeStatusCodes and (
+                                cProcess(self.length, resp.len_content)
+                                if self.length != None
+                                else True
+                            ):
+                                print(
+                                    (
+                                        "-  %s  -\t%s\t-  %s  - %s %s"
+                                        % (
+                                            code,
+                                            resp.method,
+                                            printContent(str(len(resp.content))),
+                                            resp.url,
+                                            " -> " + resp.headers["Location"]
+                                            if code in [301, 302]
+                                            else "",
+                                        )
+                                    )
+                                )
                                 self.addDirectory(path)
-                                self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
+                                self.reportManager.addPath(
+                                    code, resp.url, resp.len_content, resp.method
+                                )
                                 self.reportManager.save()
 
-                            elif code not in self.excludeStatusCodes and self.includeStatusCodes == [] and (cProcess(self.length,resp.len_content) if self.length != None else True):
-                                print(('-  %s  -\t%s\t-  %s  - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else '')))
+                            elif (
+                                code not in self.excludeStatusCodes
+                                and self.includeStatusCodes == []
+                                and (
+                                    cProcess(self.length, resp.len_content)
+                                    if self.length != None
+                                    else True
+                                )
+                            ):
+                                print(
+                                    (
+                                        "-  %s  -\t%s\t-  %s  - %s %s"
+                                        % (
+                                            code,
+                                            resp.method,
+                                            printContent(str(len(resp.content))),
+                                            resp.url,
+                                            " -> " + resp.headers["Location"]
+                                            if code in [301, 302]
+                                            else "",
+                                        )
+                                    )
+                                )
                                 self.addDirectory(path)
-                                self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
+                                self.reportManager.addPath(
+                                    code, resp.url, resp.len_content, resp.method
+                                )
                                 self.reportManager.save()
 
-                            elif (cProcess(self.length,resp.len_content) if self.length != None else True) and self.includeStatusCodes == [] and self.excludeStatusCodes == []:
-                                print(('-  %s  -\t%s\t-  %s  - %s %s'%(code,resp.method,printContent(str(len(resp.content))),resp.url,' -> '+resp.headers['Location'] if code in [301,302] else '')))
+                            elif (
+                                (
+                                    cProcess(self.length, resp.len_content)
+                                    if self.length != None
+                                    else True
+                                )
+                                and self.includeStatusCodes == []
+                                and self.excludeStatusCodes == []
+                            ):
+                                print(
+                                    (
+                                        "-  %s  -\t%s\t-  %s  - %s %s"
+                                        % (
+                                            code,
+                                            resp.method,
+                                            printContent(str(len(resp.content))),
+                                            resp.url,
+                                            " -> " + resp.headers["Location"]
+                                            if code in [301, 302]
+                                            else "",
+                                        )
+                                    )
+                                )
                                 self.addDirectory(path)
-                                self.reportManager.addPath(code,resp.url,resp.len_content,resp.method)
+                                self.reportManager.addPath(
+                                    code, resp.url, resp.len_content, resp.method
+                                )
                                 self.reportManager.save()
                         # ------------------------------
                         self.indexMutex.acquire()
                         self.index += 1
-                        self.printlastPathEntry(path,self.index,len(self.dictionary))
+                        self.printlastPathEntry(path, self.index, len(self.dictionary))
                         self.indexMutex.release()
                         path = next(self.dictionary)
                         if not self.playEvent.isSet():
@@ -221,7 +351,7 @@ class Fuzzer(Request,Output):
                             self.running = False
                             self.finishThreads()
                 except Exception as e:
-                    #self.printWarn('%s'%e)
+                    # self.printWarn('%s'%e)
                     continue
         except KeyboardInterrupt as SystemExit:
             if self.exit:

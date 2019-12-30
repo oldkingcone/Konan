@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 ################################################
 # konan - Advanced Web Application Dir Scanner
@@ -6,11 +6,12 @@
 # https://github.com/m4ll0k
 ################################################
 
-import string 
+import string
 import random
 
+
 def rstring(len_):
-	a = ""
-	for i in range(0,len_):
-		a += ''.join(random.choice(string.letters))
-	return a 
+    a = ""
+    for i in range(0, len_):
+        a += "".join(random.choice(string.letters))
+    return a
