@@ -11,7 +11,10 @@ import os
 import sys
 
 # --
-from urllib.parse import urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
 
 from handler.output import Output
 from colorama import init
@@ -81,7 +84,7 @@ kwargs = {
 
 kwargs["agent"] = "Mozilla/4.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)"
 
-usage = """ 
+usage = """
 \rUsage: konan.py [OPTIONS]\n
 \t-u --url\tTarget URL (e.g: http://site.com, http://site.com/%%/index.php)
 \t-U --url-list\tScan multiple targets given in a text file
@@ -109,7 +112,7 @@ usage = """
 \t-o --only\tShow only status code separated by comma (e.g: 200,302)
 \t-t --threads\tMax number of concurrent HTTP requests
 \t-T --timeout\tSeconds to wait before timeout connection
-\t-E --recursive\tBruteforce recursively 
+\t-E --recursive\tBruteforce recursively
 \t-D --dir-rec\tSpecify dir bruteforce recursively (e.g: test,dev)
 \t-S --sub-dir\tSpecify sub-dir bruteforce (e.g: test,dev)
 \t-h --help\tShow this help and exit
