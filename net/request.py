@@ -10,7 +10,10 @@ import re
 import time
 import socket
 import random
-import urllib.parse
+try:
+    import urllib.parse
+except ImportError:
+    import urlparse
 import urllib3
 import requests
 
