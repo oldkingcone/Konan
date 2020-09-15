@@ -42,8 +42,8 @@ Features
 | User-Agent randomization | yes | yes | no | no |
 | Ignore word in wordlist using `regexp` | yes | no | no | no |
 | Split extension in wordlist  | yes | no | no | no |
-| Multiple Methods  | yes | yes (POST only) | no | no |
-| Response Size Process | yes | no | no | no |
+| Multiple Methods  | yes | yes | no | no |
+| Response Size Process | yes | yes | no | no |
 | Provide Sub-Dir for Brute Force | yes | yes | no | no |
 | Provide Dir for Recursively Brute Force | yes | yes | no | no |
 | URL Injection Point | yes | no | no | no |
