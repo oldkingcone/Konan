@@ -14,7 +14,7 @@ Download *Konan* by cloning the Git repository:
 
 `git clone https://github.com/m4ll0k/Konan.git konan`
 
-Install requirements with `pip`
+must to Install 'pip' with 
 
 `cd konan && pip install -r requirements.txt`
 
@@ -23,7 +23,7 @@ Run *Konan*
 `python konan.py`
 
 
-Support Platforms
+Supporting Operating system
 ---
  - Linux
  - Windows
