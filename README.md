@@ -41,7 +41,7 @@ Features
 | Reporting | yes (text and json) | yes (text and json) | yes (text) | no |
 | User-Agent randomization | yes | yes | no | no |
 | Ignore word in wordlist using `regexp` | yes | no | no | no |
-| Split extension in wordlist  | yes | no | no | no |
+| Split extension in wordlist  | yes | yes | no | no |
 | Multiple Methods  | yes | yes | no | no |
 | Response Size Process | yes | yes | no | no |
 | Provide Sub-Dir for Brute Force | yes | yes | no | no |
